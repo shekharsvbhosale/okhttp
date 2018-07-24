@@ -20,9 +20,9 @@
 
   <modules>
     <module>okhttp</module>
-    <module>okhttp-tests</module>
+  <module>okhttp-tests</module>
 
-    <module>okhttp-android-support</module>
+     <!--  <module>okhttp-android-support</module>
 
     <module>okhttp-apache</module>
     <module>okhttp-sse</module>
@@ -37,7 +37,7 @@
     <module>okcurl</module>
     <module>mockwebserver</module>
     <module>samples</module>
-    <module>benchmarks</module>
+    <module>benchmarks</module> -->
   </modules>
 
   <properties>
@@ -180,6 +180,9 @@
             <systemPropertyVariables>
               <okhttp.platform>${okhttp.platform}</okhttp.platform>
             </systemPropertyVariables>
+			<systemPropertyVariables>
+						<CORONA_HOME>${project.parent.basedir}/analyser/src/main</CORONA_HOME>
+			</systemPropertyVariables>
             <redirectTestOutputToFile>true</redirectTestOutputToFile>
             <properties>
               <!--
@@ -201,7 +204,6 @@
             </dependency>
           </dependencies>
         </plugin>
-
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
@@ -211,6 +213,29 @@
     </pluginManagement>
 
     <plugins>
+	
+	<plugin>
+				<groupId>org.openclover</groupId>
+				<artifactId>clover-maven-plugin</artifactId>
+				<version>4.2.0</version>
+				<configuration>
+					<generateXml>true</generateXml>
+					<generateHtml>false</generateHtml>
+					<generatePdf>false</generatePdf>
+					<generateJson>false</generateJson>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>site</phase>
+						<goals>
+							<goal>instrument</goal>
+							<goal>clover</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+	
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
